@@ -1,0 +1,387 @@
+
+
+<!DOCTYPE html>
+<html>
+
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="reports/plugins/highchart/highchart.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script> 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular-sanitize.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+<!--     <script src="reports/plugins/highchart/jquery.highChartTable.min.js"></script> -->
+    
+    <link rel="shortcut icon" href="../_common/images/panda-logo-icon.png">
+    <title>PANDA</title>
+</head>
+
+<!--<body ng-app="panda" ng-controller='main-navigator-controller'>-->
+<body>
+
+	<style type="text/css">
+
+		* {
+			font-family: Segoe UI;
+			font-size: 12px;
+		}
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		#main-navigator {
+			background: rgba(0,0,0,0.8); 
+			color: white; 
+			height: 48px; 
+			line-height: 48px;
+		}
+
+		#sub-navigator {
+			background: rgba(0,0,0,0.1); 
+			color: black; 
+			height: 24px; 
+			line-height: 24px;
+			font-size: 12px;
+		}
+
+		#login-panel {
+			float: right;
+			margin-right:20px;
+			font-size: 12px;
+			line-height: 50px;
+		}
+
+		#env-panel {
+			float: right;
+		}
+
+		.languagepicker {
+			background-color: #333333;
+			display: inline-block;
+			padding: 0;
+			height: 30px;
+			overflow: hidden;
+			transition: all .5s ease;
+			margin: 10px 5px 0 0;
+			vertical-align: top;
+			position:relative;
+			z-index: 999;
+		}
+
+		.languagepicker:hover {
+			/* don't forget the 1px border */
+			height: 30px;
+		}
+
+		.languagepicker a{
+			color: #ffffff;
+			text-decoration: none;
+		}
+
+		.languagepicker li {
+			display: block;
+			padding: 0px 5px;
+			line-height: 30px;
+			
+		}
+
+		.languagepicker li:hover{
+			background-color: #afafaf;
+		}
+
+		.languagepicker a:first-child li {
+			border: none;
+			background: #bb635a;
+		}
+
+		.languagepicker li img {
+			margin-right: 5px;
+		}
+
+		.roundborders {
+			border-radius: 5px;
+		}
+
+		.large:hover {
+			/* 
+			don't forget the 1px border!
+			The first language is 40px heigh, 
+			the others are 41px
+			*/
+			height: auto;
+		}
+
+		#logo-panel {
+			float: right;
+			display: inline-block;
+			vertical-align: middle;
+			height: 100%;
+		}
+
+		#logo-image {
+			height: 40px;
+			vertical-align: middle;
+			margin-right:10px;
+			padding: 0px; 
+		}
+
+		#menu-links-panel {
+			float: left; 
+			font-size: 12px; 
+			padding-left: 25px;
+		}
+
+		.main-navigator-item {
+			padding-left: 5px;
+			padding-right: 25px;
+			cursor: pointer;  
+		}
+
+		.sub-navigator-item {
+			padding: 10px; 
+			cursor: pointer; 
+		}
+
+		.activeLink {
+			color: #B0B0B0; 
+		}
+
+		.activeSubLink {
+			color: #4169E1; 
+		}
+		
+		
+		
+		/* css for list and childs */
+		
+		
+		ul {
+		  list-style: none;
+		  margin: 0;
+		  padding: 0;
+		}
+		
+		ul li.testclass {
+			display:block;
+			padding: 0px;
+			margin-top: 1px;
+			background-color:red;
+		}
+		
+		li.testclass ul li{
+			
+			margin-left: 0px;
+			padding: 0;
+			background-color:blue;
+		}
+		
+		li.testclass ul li ul li{
+		
+			margin-left: 0px;
+			padding: 0;
+			background-color:green;
+		}
+		
+		
+		
+		
+
+		.third-level-menu
+{
+    position: absolute;
+    top: 0;
+    right: -150px;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.third-level-menu > li
+{
+    height: 30px;
+    background: #999999;
+}
+.third-level-menu > li:hover { background: #CCCCCC; }
+
+.second-level-menu
+{
+    position: absolute;
+    top: 30px;
+    left: 0;
+    width: 150px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: none;
+}
+
+.second-level-menu > li
+{
+    position: relative;
+    height: 30px;
+    background: #999999;
+}
+.second-level-menu > li:hover { background: #CCCCCC; }
+
+.top-level-menu
+{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.top-level-menu > li
+{
+    position: relative;
+    float: left;
+    height: 30px;
+    width: 150px;
+    background: #999999;
+}
+.top-level-menu > li:hover { background: #CCCCCC; }
+
+.top-level-menu li:hover > ul
+{
+    
+    display: inline;
+}
+
+
+
+
+		
+		
+		
+		
+		
+		
+	</style>
+	
+    <div id="main-navigator" ng-click="loadSubNavigator($event)"> 
+        <div id="menu-links-panel">
+            <img class="icon icons8-Service-Bell-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABMklEQVRIS+3UwVWDQBAG4H84eE4HmkPgKHZgCa4U4NpBUoGxArUC1wIIlmAH4pHkICVw9sD4lif7SEjMIrAnObP/x8zsQHDwkAMD/0inLlu3y4/lkgh3dToz7teRWtpo1kgdpjHb8PrMUWSWyBAlbjxCyEBIwISBgoC0ZKTw8LIRKv2tooOIDvcYDwAuLVryVhIWh7C9SBDLOagCuj2EeSbU0+6hFvJnwNwILLJIPTahLcRP5BUxkm6f336bCWIt1Gtr8GeJnJwwPvVgeyNA8UWY5kIVOstUsrsHvaHGHhkkiGUOwmnf8Mb5PLtWU1PJz3V9HxCookrChb7WVSWzWEqP8Dw4wrjdREod3fghYPJXUpdzPkTYvgwGUgpWkscCzJ44QRy068PN4Meex9ZvZUzsG++lYYngYgyTAAAAAElFTkSuQmCC" width="15" height="15">        
+            <label ng-class="{activeLink: isActiveLink('requests')}" class="main-navigator-item" selectedSubNavigator = "requests" defultMain="requests" defultSub="newRequest" onclick="javascript:pagereload();" > Requests </label> 
+
+            <img class="icon icons8-Visible-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABxElEQVRIS+1UQVbaUBS9N+i47EA8RzJtFBagK5CuoDApMLMrAFegjoBOwBWY7qALMDadkp5T3AGOBW5P0B9CSIKdeHo8Zvbz3n/33Xvf+8QrfHwFDLyD/JPK/4dczrexg93did/Ynybbd4Z/inh8LPlfbD+PWiaTo964TqIj4fyubY+yiizzwC4sdrzmwXVa3gZI2PnOAkOAjqRrr23XzcVlTDydUd/j3Vd64xHJz4D8mYVGktkaSLUXdEF0om6Ek9t2+Ud4Dju2yKGJLaSGYVgZ/K5RujExQWdey74y5whk1c2K8G2rvIr3gymBD7FCE69l75tztR8oLpWgkdeyG+G/ZZFKP3AJnCb1zAUR7r12uZQFEv43QEzKEAeaWTo0+ubJ9eQjf6aZHsr6xCQybj0t1fg5a7OC3HTj0+/nerKkTH7ymgdu1ggnTY88i03m2nQdDYIzS7hIFkxOi4ln5S+Ir3fN8uXGdMV3obDAiODHxLRMCLogphCKgmoEI+Ofjf41t1DP3ZN4UbPJJPaypFpJg3tB3ayXYesDWe0FxyLDZXNEOOGuCHig4Iv0KblmYbOa2QqyjcVL4u8gL1Epynk7cv0FYzjlHRG9mswAAAAASUVORK5CYII=" width="15" height="15">            
+            <label ng-class="{activeLink: isActiveLink('eye')}" class="main-navigator-item" selectedSubNavigator = "eye" defultMain="eye" defultSub="status" onclick="javascript:pagereload();"> Eye </label> 
+
+            <img class="icon icons8-Report-Card " src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAKDSURBVGhD7Zi/axRBFMfHn2jj3UwuaqEIglYKglgoQhoLGyvBUgRBBRtBwUZQLCxsE8S92b0rzsYUBmyF/AH+6gQRxMpgISb744Kiyfp9m8Bt9l68zbGEdzIPPjB38+Vmvzvz5s2ccuHCxb8jsvpd7Jt0VImsWYaH64rrHEGeOCPCcEak4YxIQ7aRyNdzXW/sVGzNY64/x2AjkW+W8EOfqwLF6ys3ThEqdInV56loJ4G5zGlylJqRhewIUFFEgT7LjJHGVr8IW40jaE/TZ8zGJOlju3cf2t/WaPspYcTqaCGoHa6KONCXuHHwsFOZU0TomyvLzw/spjb6Xha1DOJyxEvbh3ZlbhBYhtcYDYe8ZEduvA+bjaOxr49hNSSchkGeEWLlRGv+cH3rINPIEDgj0hBuxJovtGWjKN9j+3sMNkJJhz3+bVVgJ/rIjVMkGxfFM9uGfX2D0+QoNSObUtnx1js/PF3DQ0+ufKcfkX6xpQ9iZuaL+gJljOi4axsnqyIKzFVuHMzAszRVW+jhQ1u/kE6rnel9tRVFcZbTFxCWI1bPfO+YPWSGAp9vs7p+BCa71Z9CT5+JgvoElttPVtOPQCPD4YxIQ76Rknki3IjVH+bbtXrcHLvJ9vcYbARv5Df28lcV8oYbh0DfYq9tfiXN2gnahhNf38nrGErNyObc2X3zFAVwO2bhAV7eEir8XdLTJQvtLqPPU8II3dICc65Cbq0zzgwZyR7e16dR2belntoBE69Z/Vpk5QiW1mzSHt9PZihwPHrI6RjkJTtmYI7OWlheFzdw3ZVnZEicEWk4I9L4j4xsYIsTC7bsKbV6IKO/8kcS1JtO3KofX62hLly4YEOpvyTePvnjTuMDAAAAAElFTkSuQmCC" width="15" height="15">
+            <label ng-class="{activeLink: isActiveLink('reports')}" class="main-navigator-item" selectedSubNavigator = "reports" defultMain="reports" defultSub="ReportsIndicators" onclick="javascript:pagereload();"> Reports </label> 
+            
+			<img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAFmSURBVDhPrVK/LwRBGN1KiEKEvZkVCfUpNCrhb1ApJeiV/gmFRggiIVQ3sxs/Sj+j2PsTrjgScoXdmZMrVTjvGx/nsouQe8kkM+/73ps3367XUeyLpDcUZj4Udk8LsxVKM8clT4tkTBWbXXzMoiQfi6G0NxA/QXilpbmASU31N/pUYKbAPcN8ldvbQTdDUIVB+biQCqYdXCoYa2HvYfKiAzvNpRYoNgxeI2GWdCGd2R2569a+mdTSziLRAQyaSpgF9JyAuyX+UCSjLHcG29T0sRC90jq76A3qiQZtAJMH1yPtCssxIGl2QJy97+sT2KcQLLsigPolnrDBxyxQXKTh0Q1MfeJooD7kBotnMpVFabjWQ29DtPirifKNJA4JqtTDdD7aP6M9h+Ep7UmMmVxjv06flNvz4aaP59BMEHmTYnO6NRocVvlXkzyQiMSdNIl//K2/A5vEZBL5Zpzpv4Fu/rc4C897A+Cu9mIjQOAIAAAAAElFTkSuQmCC">
+            <label ng-class="{activeLink: isActiveLink('analysis')}" class="main-navigator-item" selectedSubNavigator = "analysis" defultMain="analysis" defultSub="status" onclick="javascript:pagereload();"> Analysis </label> 
+            
+            <img class="mainNavigationImage" src = "data:image/png;base64,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" width="17" height="17">
+            <label ng-class="{activeLink: isActiveLink('dashboards')}" class="main-navigator-item" selectedSubNavigator = "dashboards" defultMain="dashboards" defultSub="chdk74NobleDADashboard" onclick="javascript:pagereload();"> Dashboards </label> 
+            
+            <img class="icon icons8-Lifebuoy-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAACrUlEQVRIS71WMVLbUBTclVKQcYE5QZQOrAJTMGNXkU6AOUHgBuYEMSeA3MA5QeAEEpU9kyJOYSddzAmiFA400maejI0xMjKTDCrt99++/e+93U+s+UWNbc8RD0BWISUZdRn2f4zXOc7FIEtEOB8ABCA9AAmgOOiNDqOGn5DYXIhPgt5wK2rWLijs5vGSgcZCdrpYwBwk2vfrfIVI0kcg6wLwSOcMYD3oDRk3fS1Xff+7BlJ2AmAMOEcA20gRhF+GAzuTg+QM6H4VsuOw9/0iavhdEu9nSctB7iKlbtAfHUfNnRbkdIG0bozuQPwuqCTsjdo5ffBgseq1QezQHKh2DrEa9odHU5BmbQxlAeB2Fhk8m8nsgNS1voBOHPZGXg5i9y2lIelGRdPyLCbzm5vms7Oz60pI/bQmF4HoZrKFjUoMqgpxDMqDmOB2EvB15VfxGGsgYGvOpKgP98xxhdtJKxyMk+VkUd2rYqNyQeJdYXHQZdgbtR7sSWESAEUAs9gcqCSGs/EFkAc//DQIeqO9sq2OGv6AxG5BXCKle4yaO23Clq4AArq2Oy0FadbGBN8U58hOGDVqHZImJY95CFdhfxiUgjT8eGVfpNMnmZgWBf3R21KQcibbHuDanS6KX55XwrewPywc60XgVT2R8Nuk5WWmyyp6ak8gxLqdHK7aE25UPoMo7JsW98S8wmR6xRhitvGENgGOAXkgEt38CVdtvF212UXYH1ZfULv+swpL+ASknQcqbCY195Mlw7KePUeFDcA8JGou+0ljOsZgdvQvzngPUOCM+YTt+3W4iB3oLEt5CTetAu65DUMZk2mT0zZSN3FcHWTgySOPnyvqlFEHVGBalC8TZe7WWn6t2H82OTb+EANbZkHXEGPrR+FrpVQ6rACyZb5t/YN0se676y+FydlqMVSXaQAAAABJRU5ErkJggg==" width="15" height="15">
+            <label ng-class="{activeLink: isActiveLink('sos')}" class="main-navigator-item" selectedSubNavigator = "sos" defultMain="sos" defultSub="sos1" onclick="javascript:pagereload();"> SOS </label> 
+
+            <img class="icon icons8-Questions-Filled" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAABaklEQVRIS82W203DMBiFz+/AOxsQJmg3oIi8AyoDdIReBqAM0AsTAO9EZYCilg2yAe0G9JnGBznEbbgEtakjNS9WJPv/fOzjYwvSrxeETQEG9r9oS6DVGdeH2fGSgXQFuCla3I4jcNsZ17ulQ1LAu1VUihKrwiraHwiJOQRDBR1pqCqIhggqf+2f2ZOtlRiAilXVDOQhK/Ih89b0atYPwimA05+gYpDUkr3zcCaCY1NUluok9uKqEhk5gQCckmIADVtQoM8SZVATR5DvZQgu1NLztdKXonBfCiRRsTyI6Ok3CI7cQ8i79st1sx88PQNy4cxdq7hIXZa3TNlY2drCmdm+tsf1Wp513UAI47AHEg0I/LwgLXRO1jPkQiARCd+eF+d7AiBZrl4Q/nsl7KQEYARRTWqa3FodTPcW3uBG21HJBoQkagqk8Gal1732AuLstQJ8Zdqv63fbZcnrP6iNfHp6QsFjLqSM99cnSC32Gg1HasMAAAAASUVORK5CYII=" width="15" height="15">            
+            <label ng-class="{activeLink: isActiveLink('howto')}" class="main-navigator-item" selectedSubNavigator = "howto" defultMain="howto" defultSub="EyeHowTo" onclick="javascript:pagereload();"> How-To </label> 
+        </div>
+
+        <div id="logo-panel">
+            <img id="logo-image" src="../_common/images/panda-logo.png" alt="PANDA"></img>
+        </div>
+        
+		
+		
+		<div id="env-panell"  ng-app="EnvList" ng-controller="EnvListController">
+			<ul class="languagepicker roundborders large">
+				<li><a href="#">env &#9660;</a></li>
+					<li class="testclass" ng-repeat="e in Env"><a href="#">{{e.EnvId}}</a>
+						<ul >
+							<li ng-repeat="d in e.Department"><a href="#">{{d.DepartmentId}}</a>
+								<ul>
+									<li ng-repeat="t in d.Team"><a href="#">{{t.TeamId}}</a></li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+				
+			</ul>	
+		</div>
+		
+		
+        
+        <div id="login-panel">
+            <label ng-bind="fullUsername"></label>
+        </div>
+    </div>
+    
+    
+    <div id="sub-navigator" ng-click="loadContent($event)">
+        <label name="{{item.title}}" ng-class="{activeSubLink: isActiveSubLink('{{item.title}}')}" class="sub-navigator-item" ng-repeat="item in subNavigatorOptions" destination = "{{item.dest}}" param = "{{item.param}}" onclick="javascript:pagereload();" > {{item.title}} </label>
+    </div>
+    
+    <div id="main-view"> 
+        <ng-include src="destination"></ng-include>
+    </div>
+    
+
+	<script type="text/javascript">
+        var EnvListApp = angular.module('EnvList', [])
+        EnvListApp.controller('EnvListController', function ($scope) {
+            
+			$scope.Env = [
+						  {
+							"EnvId": 1,
+							"Department": [
+							  {
+								"DepartmentId": 101
+							  },
+							  {
+								"DepartmentId": 102
+							  }
+							]
+						  },
+						  {
+							"EnvId": 2,
+							"Department": [
+							  {
+								"DepartmentId": 103
+							  },
+							  {
+								"DepartmentId": 104,
+								"Team": [
+								  {
+									"TeamId": 1041
+								  },
+								  {
+									"TeamId": 1042
+								  }
+								]
+							  },
+							  {
+								"DepartmentId": 105
+							  }
+							]
+						  },
+						  {
+							"EnvId": 3,
+							"Department": [
+							  {
+								"DepartmentId": 106
+							  }
+							]
+						  }
+						];
+                
+        });
+		
+    </script>
+
+</body>
+
+<!--languagepicker roundborders large
+ng-binding
+-->
+</html> 

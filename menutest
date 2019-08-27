@@ -1,1 +1,224 @@
-mmmmmmmm
+<?php
+echo "outpot should be " . " 1 + 2*3 + 4*5*6 + 7*8*9*10 "."</br>";
+echo 1 + 2*3 + 4*5*6 + 7*8*9*10;
+echo "</br>";
+	
+function testSeries($no){
+	
+	$x = 0; $series = ''; $j = 1; $plus = "+"; $multiply = "*";
+
+	while($x <= $no) {
+		for($i=1; $i<=$x; $i++){
+			$numbers = "";	
+			$p = ""; $m = "";
+			$numbers = $j;
+			
+			if($i != $x){
+				 $m = '*';
+			}
+			if($i == $x){
+				if($x != $no){
+					$p = $plus;
+				}
+			}
+			$series .=  $numbers . $m . $p;
+			$j++;
+		}
+		$x++; 
+	} 
+	return $series;
+}
+$no = 6;
+$result = testSeries($no);
+echo $result; 
+
+
+
+
+*******************************************************************************
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Select</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+		<script type="application/javascript">
+		$(document).ready(function(){
+			
+			//country Array to make country list
+			var country = ["INDIA","USA","AUS"];
+			for(var i = 0; i < country.length; i++) {
+				var countryName = country[i];
+				var $li = $("<li><a href='#'>"+ countryName +"</a></li>");  	
+				$("#countryLinkList").append($li);  
+				//$("li:first-child").addClass('active');
+			}
+			
+			//onclick of any country
+			$('.countryList li').click(function() {	
+				$(this).closest('ul').find('.active').removeClass();
+				$(this).addClass('active');
+				//$(".cityliclass li").removeClass();
+				$(".cityliclass").empty();
+				//var countryClicked = $("a",this).attr('href'); 
+				var countryClicked =  $(this).text();
+				$("#div2").addClass('child');
+				$("#div3").removeClass('child'); 	//remove div 3 on click of country click to make country and state div in center.
+				$("#stateHidden").val("");			//make state hidden value null so city hides on click of country.
+				
+				//country state array
+				var countryState = { 
+					"INDIA": ["KA", "MP", "TN"],
+					"USA": ["WA", "NY", "CO"],
+					"AUS": ["SY","AD","SYD"]
+				};
+
+				$("#stateLinkList").empty();
+				$("#stateLinkList").append("<h4>State</h4>");
+				for (countryName in countryState){
+					if(countryName === countryClicked){
+						for (stateNameOfCountry in countryState[countryName]) { 
+							var stateName = countryState[countryName][stateNameOfCountry];
+							var $stateLi = $("<li><a href='#'>"+ stateName +"</a></li>"); 						
+							$("#stateLinkList").append($stateLi); 
+							//$(".liclass li:first-child").addClass('active');
+						}	
+					}
+				}
+			});
+			
+			//onclick of any state
+			$('.stateList').on('click','li a', function(){	
+				$(this).closest('ul').find('.active').removeClass();
+				$(this).closest('ul li').addClass('active');
+				$("#div3").addClass('child');
+				
+				var stateClicked =  $(this).text();
+				var stateHidden = $("#stateHidden").val(stateClicked);
+				
+				//state city array
+				var stateCity = { 
+					"KA": ["Banglore", "Mysore", "Manglore"],
+					"MP": ["Bhopal", "Satna", "Indore"],
+					"TN": ["Chennai", "Coimbatore", "Hosur"],
+					"WA": ["Albion", "Conconully", "Fairfield"],
+					"NY": ["Hudson", "Kingston", "Lockport "],
+					"CO": ["Springfield", "Rico", "Denver"],
+					"SY": ["Sydney","Adiled","Sydney city"],
+					"AD": ["Perth","Karratha","Albany"],
+					"SYD": ["Caboolture","Armidale","Lithgow"]
+				};
+
+				$("#cityLinkList").empty();
+				$("#cityLinkList").append("<h4>City</h4>");
+				for (stateNameList in stateCity){ 
+					if(stateNameList === stateClicked){
+						for (cityNameOfState in stateCity[stateNameList]) { 
+							var cityName = stateCity[stateNameList][cityNameOfState];
+							var $cityLi = $("<li><a href='#'>"+ cityName +"</a></li>"); 						
+							$("#cityLinkList").append($cityLi); 
+							//$(".cityliclass li:first-child").addClass('active');
+						}
+					}	
+				}
+				
+			});
+			
+			//onclick of any state
+			$('.cityList').on('click','li a', function(){
+				$(this).closest('ul').find('.active').removeClass();
+				$(this).closest('ul li').addClass('active');
+				
+				//commented because on click of city without selected state is not required now.
+				/*if($("#stateHidden").val() ==""){
+					$(this).closest('ul').find('.active').removeClass();
+					alert("Please select state first");
+				}else{
+					$(this).closest('ul').find('.active').removeClass();
+					$(this).closest('ul li').addClass('active');
+					var cityClicked =  $(this).text();
+					alert("hello " + cityClicked);
+				}*/
+				
+				var cityClicked =  $(this).text();
+				alert("hello " + cityClicked);
+			});
+		 
+		});
+		</script>
+	</head>
+	<body>
+		<style type="text/css">
+			.nav-sidebar {
+				background-color: #f5f5f5;
+				margin-right: 10px;
+				margin-bottom: 20px;
+				margin-left: 5px;
+			}
+			.nav-sidebar  > li > a {
+				padding-right: 20px;
+				padding-left: 20px;
+			}
+			.nav.nav-sidebar   > li.active > a {
+				color: #fff;
+				background-color: #1a95ed;
+			}
+			.floatDiv{
+				float: left; 
+				width:  33%;
+			}
+			.addScrollBarvertically{ 
+				overflow-y: auto;
+				height: 100px;
+			}
+			.parent {
+				width: 90%;
+				height: 90%;
+				position: absolute;
+				left: 0;
+				right: 0;
+				top:20px;
+				margin: auto;
+			  
+				text-align: center;
+			}
+			.child  {
+			  display: inline-block;
+			  width: 30%;
+			  height: 90%;	
+			  overflow: auto;	
+			  margin: 0 auto !important;
+			  text-align: left;
+			}
+			.child ul h4{
+				text-align: left;
+				color: solid black;
+				margin-right: 10px;
+				margin-bottom: 10px;
+				/*margin-left: 5px;
+				padding-right: 20px;
+				background-color: #1a95ed;
+				*/
+				padding-left: 20px;
+			}
+		</style>
+
+		<div class="parent">
+			<div class="child">
+				<ul class="countryList nav nav-sidebar" id="countryLinkList"><h4>Country</h4></ul>
+			</div>
+			<div id="div2">
+				<input type="hidden" name="stateHidden" id="stateHidden">
+				<ul class="stateList nav nav-sidebar liclass" id="stateLinkList"></ul>
+			</div >
+			<div id="div3">
+				<ul class="cityList nav nav-sidebar cityliclass" id="cityLinkList"></ul>
+			</div>
+		</div>
+	</body>
+</html>
+
+
+

@@ -1,0 +1,236 @@
+from functools import reduce
+#python list
+list1 = ['meraj','ahmad','khadda','india']
+list2 = [1,2,3,4,5]
+list3 = ["a","b","c","d","e"]
+
+print("list1[0]: ",list1[0])
+print("list2[1:5]: ",list2[1:5])
+print("*******************************************")
+
+#Updating Lists
+print("value at index 2 is ", list1[2])
+list1[2] = "banglore"
+print("value after update at index 2 is ", list1[2])
+print("*******************************************")
+
+#Delete List Elements
+list4 = [1,2,3,4]
+print(list4)
+
+del list4[2]
+print("after deleting value on index 2 is ", list4)
+
+print("************* find duplicate in list **************")
+def find_duplicate(list5):
+    temp = []
+    newlist = []
+    for item in list5:
+        if item in temp:
+            newlist.append(item)
+        else:
+            temp.append(item)
+    return newlist
+
+list5 = [1,2,3,4,5,2,4,0]
+duplicate = find_duplicate(list5)
+print(duplicate)
+
+print("************* reverse a list **************")    
+list6 = [2,4,5,7,8]
+print(list6[::-1])
+
+print("************* reverse a string **************")     
+str1 = "Meraj"
+print(str1[::-1])
+
+str2 = "reverse"
+rev = ""
+for x in str2:
+    rev = x + rev
+print(rev)
+
+print("************* find palindroom of a string **************")
+str3 = "level"
+if str3[::-1] == str3:
+    print("it is a palindroom")
+else:
+    print("it is not a palindroom")
+    
+str4 = "abcbaf"
+str4_rev = ""
+for x in str4:
+    str4_rev = x + str4_rev
+if str4 == str4_rev:    
+    print("it is a palindroom")
+else:
+    print("it is not a palindroom")
+    
+print("************* list comprehension **************")
+list7 = [x for x in range(10)]
+print(list7)
+
+list8 = [x for x in range(2,12)]
+print(list8)
+
+list9 = [x for x in range(3,12,2)]
+print(list9)
+
+list10 = [x**2 for x in range(10)]
+print(list10) 
+
+list11 = [2**i for i in range(5)]
+print(list11)
+
+list12 = [x for x in range(17) if x%2 == 0]
+print(list12)
+
+print("************* python lambda **************")
+cube = lambda x: x*x*x
+print(cube(5)) 
+
+add = lambda x,y: x+y
+print(add(5,2))
+
+print("************* python filter() with lambda **************")
+list13 = [5, 7, 22, 97, 54, 62, 77, 23, 73, 61] 
+filter_list = list(filter(lambda x: (x%2 != 0) , list13)) 
+print(filter_list)
+
+print("************* python lambda() with map() **************")
+map_list = list(map(lambda x: x*2, list13)) 
+print(map_list)
+
+print("************* python lambda() with reduce() **************")
+reduce_list = reduce((lambda x,y:x+y),list13)
+print(reduce_list)
+
+list14 = [10,2,4]
+addintStr = reduce((lambda x,y:x-y),list14)
+print(addintStr)
+
+print("************* python enumaration **************")
+print(list(enumerate(list14)))
+
+
+print("************* python Iterables **************") 
+print("When you create a list, you can read its items one by one. Reading its items one by one is called iteration:")
+list15=[2,5,6,7,10]
+for x in list15:
+    print(x)
+    
+list16 = [x*x for x in range(3)]
+for x in list16:
+    print(x)
+
+print("************* python Generators **************") 
+print("Generators are iterators, a kind of iterable you can only iterate over once. Generators do not store all the values in memory, they generate the values on the fly")
+mygenerator = (x*x for x in range(5))
+for x in mygenerator:
+    print(x)
+
+print("************* python yield **************") 
+print("yield is a keyword that is used like return, except the function will return a generator.")
+
+def mygenerator1():
+    mylist = range(3)
+    for i in mylist:
+        yield i*i
+        
+mygenerator1 = mygenerator1() # create a generator
+print(mygenerator1) # mygenerator is an object!
+for i in mygenerator1:
+    print(i)
+
+print("************* python  decorator **************") 
+
+
+
+print("************* python touple **************") 
+
+
+     
+print("*********** Zip function ********")
+numbers = [1, 2, 3]
+letters = ['a', 'b', 'c'] #if we add more element in any one list, then it will not include in zip 
+zipped = zip(numbers, letters)
+for z in zipped:
+    print(z)
+
+print("*********** Passing one argument in Zip function ********")    
+a = [1, 2, 3]
+zipped = zip(a)
+re = list(zipped)
+print(re)
+    
+print("********** single value in a tupple **********")
+tu = (1,)
+print(tu)
+
+print("********** type cast str without str function **********")
+stra = "123"
+print(stra)
+print(type(stra))
+
+result = 0
+for digit in stra:
+    result *= 10
+    for d in '0123456789':
+        result += digit > d
+
+print(result)
+
+print("********** lambda function to print 1 to 100 **********")
+numbers = [(lambda x: x+1)(x) for x in range(50)]
+print(numbers)
+
+print("********** find anagram in a list **********")
+
+def findAnagram(list):
+    sorted_list = sorted(list, key=str.lower)
+    
+    return sorted_list
+    
+list = ["eat","tan","tea","bat","ant","bats"]
+res = findAnagram(list)
+print(res)    
+
+
+
+
+anagram_list = []
+for word_1 in list: 
+    for word_2 in list: 
+        if word_1 != word_2 and (sorted(word_1)==sorted(word_2)):
+            anagram_list.append(word_1)
+print(anagram_list)
+
+print("********** list comprehension **********")
+
+list_comprehensions = [x for x in range(1,101) if x%9==0]
+print(list_comprehensions)
+
+
+print("********** find duplicate values in a list **********")
+
+def find_duplicate(list):
+    duplicat_list = []
+    all_list = []
+    for item in list:
+        if item not in all_list:
+            all_list.append(item)
+        else:
+            duplicat_list.append(item)
+    
+    return duplicat_list
+
+my_list = [3,5,3,6,7,2,1,2,4,9,4,0]
+my_2_list = ['meraj','ahmad','meraj','mahir','sony','mahir']
+dup_res = find_duplicate(my_2_list)
+print(dup_res)
+
+
+
+
+
+    
